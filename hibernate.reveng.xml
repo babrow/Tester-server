@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="ACCOUNT" match-catalog="tester"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TEST" match-catalog="tester"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TEST_ATTR" match-catalog="tester"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TEST_RESULT" match-catalog="tester"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TEST_RESULT_ATTR" match-catalog="tester"
+		match-schema="dbo">
+	</table-filter>
+</hibernate-reverse-engineering>
