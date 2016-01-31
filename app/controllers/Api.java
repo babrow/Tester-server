@@ -2,46 +2,49 @@ package controllers;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+
+import com.google.gson.Gson;
 
 import models.Account;
 import models.Test;
 import models.TestAttr;
 import models.TestResult;
 import models.TestResultAttr;
+import play.Logger;
+import play.db.jpa.GenericModel;
 import play.db.jpa.GenericModel.JPAQuery;
 import play.db.jpa.JPABase;
 import play.mvc.Controller;
 
 public class Api extends Controller {
 	
-	private enum ResultCode {
-		ERROR, SUCCESS
-	}
 	
-	public static class Result {
+	public static class Result<T extends GenericModel> {
+		public enum ResultCode {
+			ERROR, SUCCESS
+		}
+		
 		private ResultCode resultCode;
 		private String resultMessage;
+		private T data;
 		
 		private Result() {
 			
 		}
 		
-		public static Result errorMsg(String message) {
-			Result r = new Result();
-			r.setResultCode(ResultCode.ERROR);
-			r.setResultMessage(message); 
-			return r; 
+		public Result(ResultCode resultCode, String message) {
+			this(resultCode, message, null);
 		}
 		
-		public static Result successMsg(String message) {
-			Result r = new Result();
-			r.setResultCode(ResultCode.SUCCESS);
-			r.setResultMessage(message); 
-			return r; 
+		public Result(ResultCode resultCode, String message, T data) {
+			this.setResultCode(ResultCode.SUCCESS);
+			this.setResultMessage(message); 
+			this.setData(data);
 		}
 
 		public ResultCode getResultCode() {
@@ -59,6 +62,14 @@ public class Api extends Controller {
 		public void setResultMessage(String resultMessage) {
 			this.resultMessage = resultMessage;
 		}
+
+		public T getData() {
+			return data;
+		}
+
+		public void setData(T data) {
+			this.data = data;
+		}
 	}
 	
 	
@@ -75,15 +86,18 @@ public class Api extends Controller {
 				new TestResultAttr(testAttr, tr, value).save();
 			}
 		}
-		renderJSON(Result.successMsg(StringUtils.EMPTY));
+		renderJSON(new Result(Result.ResultCode.SUCCESS, StringUtils.EMPTY));
 	}
 	
-	public static void login(String userName, String password) {
-		Account account = Account.find("byEmail", userName).first();
-		if (account != null) {
-			renderJSON(account);	
-		} else {
-			renderJSON(Result.errorMsg("Неверный логин или пароль"));
+	public static void login() {
+		Account account = null;
+		try {
+			String str = params.get("body");
+			Account acc = new Gson().fromJson(str, Account.class);
+			account = Account.find("byEmail", acc.getEmail()).first();			
+		} catch(Exception e) {
+			Logger.error(e, "Error getting user");
 		}
+		renderJSON(account);
 	}
 }

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -32,6 +33,7 @@ public class Account extends GenericModel {
 	@Column(name = "S_NAME", nullable = false)	
 	private String SName;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")	
+	@Transient
 	private Set<TestResult> testResults = new HashSet<TestResult>(0);
 
 	public Account() {
