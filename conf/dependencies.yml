@@ -2,4 +2,5 @@
 
 require:
     - play
-    - crud    
+    - crud
+    - secure

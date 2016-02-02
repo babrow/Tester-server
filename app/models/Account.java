@@ -1,19 +1,11 @@
 package models;
 
+import org.apache.commons.lang.StringUtils;
+import play.db.jpa.GenericModel;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.apache.commons.lang.StringUtils;
-
-import play.db.jpa.GenericModel;
 
 @Entity
 @Table(name = "ACCOUNT", catalog = "tester")
@@ -117,6 +109,10 @@ public class Account extends GenericModel {
 	
 	public String getFIO() {
 		return StringUtils.join(new String[] {getFName(), getLName(), getSName()}, " ");
+	}
+
+	public String toString() {
+		return getEmail();
 	}
 
 }

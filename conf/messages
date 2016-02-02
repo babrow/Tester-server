@@ -1,3 +1,9 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+
+crud.list.title=Список
+email=Почта
+LName=Фамилия
+FName=Имя
+SName=Отчество
