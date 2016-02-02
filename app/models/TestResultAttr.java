@@ -1,16 +1,9 @@
 package models;
 
-import java.math.BigDecimal;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import play.db.jpa.GenericModel;
+
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -19,6 +12,8 @@ public class TestResultAttr extends GenericModel {
 
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
+	@SequenceGenerator(name="pk_sequence", sequenceName="test_result_attr_id_seq", allocationSize=1, initialValue = 10)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,generator="pk_sequence")
 	private long id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEST_ATTR_ID", nullable = false)
