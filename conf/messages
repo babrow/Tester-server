@@ -2,6 +2,12 @@
 # For example, for French create a messages.fr file
 #
 
+secure.title=Учетные данные
+secure.email=Почта
+secure.remember=Запомнить меня
+secure.signin=Вход
+secure.password=Пароль
+secure.error=Неверные учетные данные
 crud.list.title=Список
 email=Почта
 LName=Фамилия

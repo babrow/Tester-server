@@ -1,16 +1,10 @@
 package models;
 
+import play.db.jpa.GenericModel;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import play.db.jpa.GenericModel;
 
 @Entity
 @Table(name = "TEST", catalog = "tester")
@@ -18,6 +12,8 @@ public class Test extends GenericModel {
 
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
+	@SequenceGenerator(name="pk_sequence", sequenceName="test_id_seq", allocationSize=1)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,generator="pk_sequence")
 	private long id;
 	@Column(name = "NAME", nullable = false)
 	private String name;

@@ -45,7 +45,13 @@ public class Api extends Controller {
         try {
             String str = params.get("body");
             Account acc = new Gson().fromJson(str, Account.class);
-            account = Account.find("byEmail", acc.getEmail()).first();
+            String email = acc.getEmail();
+            String password = acc.getPassword();
+            account = Account.find("byEmailAndPassword", acc.getEmail(), acc.getPassword()).first();
+            if (account == null) {
+                account = new Account(email, password);
+                account.save();
+            }
         } catch (Exception e) {
             Logger.error(e, "Error getting user");
             error(ERR_CODE, "Ошибка сервера при попытке авторизации. Повторите попытку позднее.");

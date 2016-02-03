@@ -12,43 +12,33 @@ import java.util.Set;
 public class Account extends GenericModel {
 
 	@Id	
-	@Column(name = "ID", unique = true, nullable = false)	
+	@Column(name = "ID", unique = true, nullable = false)
+    @SequenceGenerator(name="pk_sequence", sequenceName="account_id_seq", allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,generator="pk_sequence")
 	private long id;
 	@Column(name = "EMAIL", nullable = false)	
 	private String email;
 	@Column(name = "PASSWORD", nullable = false)	
 	private String password;
-	@Column(name = "F_NAME", nullable = false)	
+	@Column(name = "F_NAME")
 	private String FName;
-	@Column(name = "L_NAME", nullable = false)
+	@Column(name = "L_NAME")
 	private String LName;
-	@Column(name = "S_NAME", nullable = false)	
+	@Column(name = "S_NAME")
 	private String SName;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account")	
 	@Transient
 	private Set<TestResult> testResults = new HashSet<TestResult>(0);
+    @Column(name = "IS_ADMIN")
+    private boolean isAdmin;
 
 	public Account() {
 	}
 
-	public Account(long id, String email, String password, String FName, String LName, String SName) {
-		this.id = id;
+	public Account(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.FName = FName;
-		this.LName = LName;
-		this.SName = SName;
-	}
-
-	public Account(long id, String email, String password, String FName, String LName, String SName,
-			Set<TestResult> testResults) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.FName = FName;
-		this.LName = LName;
-		this.SName = SName;
-		this.testResults = testResults;
+        this.isAdmin = false;
 	}
 	
 	public long getId() {
@@ -115,4 +105,11 @@ public class Account extends GenericModel {
 		return getEmail();
 	}
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
 }

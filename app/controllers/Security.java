@@ -1,24 +1,32 @@
 package controllers;
 
+import models.Account;
+import play.Logger;
+
 public class Security extends Secure.Security {
 
     static boolean authentify(String email, String password) {
-        return true;//Account.connect(email, password) != null;
+        Account account = Account.find("byEmailAndPassword", email, password).first();
+        return account != null;
     }
 
     static boolean check(String profile) {
-//        if ("admin".equals(profile)) {
-//            return Account.find("byEmail", connected()).<Account>first().isAdmin;
-//        }
+        if ("admin".equals(profile)) {
+            return Account.find("byEmail", connected()).<Account>first().isAdmin();
+        }
         return false;
     }
 
-    static void onDisconnected() {
-        Application.index();
+    public static void logout() {
+        try {
+            Secure.logout();
+        } catch (Throwable t) {
+            Logger.error(t, "Error logout");
+        }
     }
 
     static void onAuthenticated() {
-        //Admin.index();
+        Application.index();
     }
 
 }

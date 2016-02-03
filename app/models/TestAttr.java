@@ -1,25 +1,20 @@
 package models;
 
 
+import play.db.jpa.GenericModel;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import play.db.jpa.GenericModel;
 
 @Entity
 @Table(name = "TEST_ATTR", catalog = "tester")
 public class TestAttr extends GenericModel {
 
 	@Id
-	@Column(name = "ID", unique = true, nullable = false)	
+	@Column(name = "ID", unique = true, nullable = false)
+	@SequenceGenerator(name="pk_sequence", sequenceName="test_attr_id_seq", allocationSize=1)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE,generator="pk_sequence")
 	private long id;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "TEST_ID", nullable = false)
