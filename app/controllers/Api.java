@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class Api extends Controller {
     public static final int ERR_CODE = 999;
+    public static final String successResponse = "Данные удачно сохранены";
 
     public static void saveResult() {
         try {
@@ -37,7 +38,7 @@ public class Api extends Controller {
             Logger.error(e, "Error saving results");
             error(ERR_CODE, "Ошибка сервера при попытке записи результата теста. Повторите попытку позднее.");
         }
-        ok();
+        renderText(successResponse);
     }
 
     public static void login() {
