@@ -48,10 +48,12 @@ public class Api extends Controller {
             Account acc = new Gson().fromJson(str, Account.class);
             String email = acc.getEmail();
             String password = acc.getPassword();
-            account = Account.find("byEmailAndPassword", acc.getEmail(), acc.getPassword()).first();
+            account = Account.find("byEmail", acc.getEmail()).first();
             if (account == null) {
                 account = new Account(email, password);
                 account.save();
+            } else if (!account.getPassword().equals(password)) {
+                account = null;
             }
         } catch (Exception e) {
             Logger.error(e, "Error getting user");
