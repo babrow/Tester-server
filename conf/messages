@@ -4,6 +4,7 @@
 
 secure.title=Учетные данные
 secure.email=Почта
+secure.username=Почта
 secure.remember=Запомнить меня
 secure.signin=Вход
 secure.password=Пароль

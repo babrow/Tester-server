@@ -1,78 +1,69 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
- <div class="container">
-
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+<div class="container">
+    <nav class="navbar navbar-default">
         <div class="container-fluid">
-          <div class="navbar-header">
-            *{<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">}*
-              *{<span class="sr-only">Toggle navigation</span>}*
-              *{<span class="icon-bar"></span>}*
-              *{<span class="icon-bar"></span>}*
-              *{<span class="icon-bar"></span>}*
-            *{</button>}*
-            <a class="navbar-brand" href="#">Система тестирования</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="@{Application.index()}">Главная</a></li>
-            </ul>
-              <ul class="nav navbar-nav navbar-right">
-                  <li><a href="#">Контакты</a></li>
-                  <li class="dropdown-toggle">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                         aria-expanded="false">Профиль <span class="caret"></span></a>
-                      <ul class="dropdown-menu">
-                          <li class="dropdown-header">${account.getEmail()}</li>
-                          #{if account.isAdmin()}
-                              <li><a href="@{Admin.index()}">Администрирование</a></li>
-                              <li role="separator" class="divider"></li>
-                          #{/if}
-                          <li><a href="@{Security.logout()}">Выход</a></li>
-                      </ul>
-                  </li>
-              </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-	<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">">
-		<thead>
-			<tr>
-				<th>Пользователь</th>
-				<th>Тест</th>
-				<th>Дата прохождения теста</th>
-				<th>Результат</th>
-			</tr>
-		</thead>
-		<tbody>
-			#{list items:testResults, as:'tr'}
-			<tr>
-				<td>${tr.getAccount().getEmail()}</td>
-				<td>${tr.getTest().getName()}</td>
-				<td>${tr.getResultDate()}</td>
-				<td>
-					#{list items:tr.getTestResultAttrs(), as:'attr'}
-						<div>${attr.getTestAttr().getName()}: ${attr.getVal()}</div>
-					#{/list}		
-				</td>
-			</tr>
-	        #{/list}		
-		</tbody>
-	</table>    
-    
-    </div> <!-- /container -->      
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Система тестирования</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="@{Application.index()}">Главная</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Контакты</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Профиль <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">${account.getEmail()}</li>
+                        #{if account.isAdmin()}
+                            <li><a href="@{Admin.index()}">Администрирование</a></li>
+                            <li role="separator" class="divider"></li>
+                        #{/if}
+                            <li><a href="@{Security.logout()}">Выход</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">">
+        <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Тест</th>
+            <th>Дата прохождения теста</th>
+            <th>Результат</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list items:testResults, as:'tr'}
+        <tr>
+            <td>${tr.getAccount().getEmail()}</td>
+            <td>${tr.getTest().getName()}</td>
+            <td>${tr.getResultDate()}</td>
+            <td>
+                #{list items:tr.getTestResultAttrs(), as:'attr'}
+                    <div>${attr.getTestAttr().getName()}: ${attr.getVal()}</div>
+                #{/list}
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>s
+</div>
 
 <script type="text/javascript">
-	$(document).ready(function() {
+    $(document).ready(function() {
         $('#example').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.10/i18n/Russian.json"
             }
         });
 
- 		$(".dropdown-toggle").dropdown();
 	} );
 
 </script>

@@ -2,11 +2,12 @@ package controllers;
 
 import models.Account;
 import play.Logger;
+import utils.Utils;
 
 public class Security extends Secure.Security {
 
     static boolean authentify(String email, String password) {
-        Account account = Account.find("byEmailAndPassword", email, password).first();
+        Account account = Account.find("byEmailAndPassword", email, Utils.md5(password)).first();
         return account != null;
     }
 
