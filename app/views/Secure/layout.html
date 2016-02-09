@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>#{get 'title' /}</title>
+    <meta charset="${_response_encoding}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/Bootstrap-3.3.5/css/bootstrap-theme.min.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/Bootstrap-3.3.5/css/bootstrap.min.css'}">
+    <link rel="stylesheet" href="@{'/public/stylesheets/signin.css'}">
+    #{get 'moreStyles' /}
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+</head>
+<body>
+        #{script src:"jquery.min.js" /}
+        #{script src:"bootstrap.min.js" /}
+
+        #{doLayout /}
+
+        #{get 'moreScripts' /}
+</body>
+</html>
