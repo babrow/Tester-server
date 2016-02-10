@@ -25,6 +25,8 @@ public class TestAttr extends GenericModel {
 	private long val;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "testAttr")
 	private Set<TestResultAttr> testResultAttrs = new HashSet<TestResultAttr>(0);
+	@Column(name = "SORT_ORDER")
+	private Integer sortOrder;
 
 	public TestAttr() {
 	}
@@ -84,4 +86,11 @@ public class TestAttr extends GenericModel {
 		this.testResultAttrs = testResultAttrs;
 	}
 
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
+	}
 }

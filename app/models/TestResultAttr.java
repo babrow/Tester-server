@@ -12,7 +12,7 @@ public class TestResultAttr extends GenericModel {
 
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
-	@SequenceGenerator(name="pk_sequence", sequenceName="test_result_attr_id_seq", allocationSize=1, initialValue = 10)
+	@SequenceGenerator(name="pk_sequence", sequenceName="test_result_attr_id_seq", allocationSize=1)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE,generator="pk_sequence")
 	private long id;
 	@ManyToOne(fetch = FetchType.LAZY)
