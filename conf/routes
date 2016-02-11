@@ -7,6 +7,7 @@ GET     /                                       Application.index
 
 # Adminstration
 *       /admin                                  module:crud
+*       /admin/index                                module:crud
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

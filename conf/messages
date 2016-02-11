@@ -2,6 +2,7 @@
 # For example, for French create a messages.fr file
 #
 
+app.name=Система тестирования
 secure.title=Учетные данные
 secure.email=Почта
 secure.username=Почта
