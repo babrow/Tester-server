@@ -4,22 +4,22 @@
     #{header account:account  /}
     #{test-results testResults:testResults  /}
 
-
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('table.table').DataTable({
-            dom: 'Bfrtip',
-            buttons: {
-                buttons: ['excel', 'pdf', 'csv']
-            },
-            "order": [[2, "desc"]],
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.10/i18n/Russian.json"
-            }
-        });
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
-        });
-        $('#results-tab a:first').tab('show');
+#{set 'docReady'}
+#{get 'docReady' /}
+    $('table.table').DataTable({
+        dom: 'Bfrtip',
+        buttons: {
+            buttons: ['excel', 'pdf', 'csv']
+        },
+        "order": [[2, "desc"]],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.10/i18n/Russian.json"
+        }
     });
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $.fn.dataTable.tables({visible: true, api: true}).columns.adjust();
+    });
+    $('#results-tab a:first').tab('show');
+#{/set}
 </script>

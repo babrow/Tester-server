@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import models.*;
 import play.Logger;
 import play.mvc.Controller;
+import utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,7 +14,9 @@ import java.util.Map;
 
 public class Api extends Controller {
     public static final int ERR_CODE = 999;
-    public static final String successResponse = "Данные удачно сохранены";
+    public static final String SUCCESS_RESPONSE = "Данные удачно сохранены";
+    public static final String RESULTS_WRONG = "Результаты теста не достоверны";
+
 
     public static void saveResult() {
         try {
@@ -25,20 +28,27 @@ public class Api extends Controller {
             Test test = Test.findById(Long.valueOf(data.get("testId")));
             Account account = Account.findById(Long.valueOf(data.get("accountId")));
 
-            TestResult tr = new TestResult(account, test, new Date()).save();
+            BigDecimal result = Utils.parseNumber(data.get("result"), BigDecimal.class);
+            String resultDescr = data.get("resultDescr");
+            TestResult tr;
+            if (RESULTS_WRONG.equals(resultDescr)) {
+                tr = new TestResult(account, test, new Date()).save();
+            } else {
+                tr = new TestResult(account, test, new Date(), result, resultDescr).save();
+            }
 
             List<TestAttr> testAttrs = TestAttr.find("byTest", test).fetch();
             for (TestAttr testAttr : testAttrs) {
-                String value = data.get(testAttr.getName());
+                BigDecimal value = Utils.parseNumber(data.get(testAttr.getName()), BigDecimal.class);
                 if (value != null) {
-                    new TestResultAttr(testAttr, tr, new BigDecimal(value)).save();
+                    new TestResultAttr(testAttr, tr, value).save();
                 }
             }
         } catch (Exception e) {
             Logger.error(e, "Error saving results");
             error(ERR_CODE, "Ошибка сервера при попытке записи результата теста. Повторите попытку позднее.");
         }
-        renderText(successResponse);
+        renderText(SUCCESS_RESPONSE);
     }
 
     public static void login() {

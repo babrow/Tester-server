@@ -1,7 +1,8 @@
 INSERT into tester.ACCOUNT (ID, EMAIL, PASSWORD, F_NAME, L_NAME, S_NAME) VALUES (1, 'tester@gmail.com', 'tester', 'f_tester', 'l_tester', 's_tester');
 
-INSERT into tester.TEST (ID, NAME, DESCRIPTION) VALUES (1, 'Таппинг', 'Таппинг');
+INSERT into tester.TEST (ID, NAME, DESCRIPTION) VALUES (1, 'Теппинг', 'Теппинг');
 INSERT into tester.TEST (ID, NAME, DESCRIPTION) VALUES (2, 'Светофор', 'Светофор');
+INSERT into tester.TEST (ID, NAME, DESCRIPTION) VALUES (3, 'Расстановка чисел', 'Расстановка чисел');
 
 INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (1, 'Количество нажатий за 1 интервал', 30, 1);
 INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (2, 'Количество нажатий за 2 интервал', 30, 1);
@@ -11,6 +12,18 @@ INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (5, 'Количес
 INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (6, 'Количество нажатий за 6 интервал', 30, 1);
 INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (7, 'Процент ошибок', 0, 2);
 INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID) VALUES (8, 'Среднее время реакции', 800, 2);
+
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (9, 'Время прохождения 1 интервала', 30, 3, 1);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (10, 'Время прохождения 2 интервала', 30, 3, 2);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (11, 'Время прохождения 3 интервала', 30, 3, 3);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (12, 'Время прохождения 4 интервала', 30, 3, 4);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (13, 'Время прохождения 5 интервала', 30, 3, 5);
+
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (15, 'Количество ошибок за 1 интервал', 30, 0, 1);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (16, 'Количество ошибок за 2 интервал', 30, 0, 2);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (17, 'Количество ошибок за 3 интервал', 30, 0, 3);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (18, 'Количество ошибок за 4 интервал', 30, 0, 4);
+INSERT into tester.TEST_ATTR (ID, NAME, VAL, TEST_ID, SORT_ORDER) VALUES (19, 'Количество ошибок за 5 интервал', 30, 0, 5);
 
 INSERT into tester.TEST_RESULT (ID, ACCOUNT_ID, TEST_ID, RESULT_DATE) VALUES (1, 1, 1, '2016-01-24 16:55:16.213');
 INSERT into tester.TEST_RESULT (ID, ACCOUNT_ID, TEST_ID, RESULT_DATE) VALUES (2, 1, 2, '2016-01-24 16:55:30.690');

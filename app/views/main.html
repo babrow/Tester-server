@@ -18,5 +18,11 @@
         #{doLayout /}
         
         #{get 'moreScripts' /}
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                #{get 'docReady' /}
+            });
+        </script>
     </body>
 </html>

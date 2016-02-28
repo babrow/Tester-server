@@ -1,5 +1,7 @@
 package utils;
 
+import play.Logger;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -24,5 +26,19 @@ public class Utils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static <T extends Number> T parseNumber(String stringValue, Class<T> clazz) {
+        return parseNumber(stringValue, clazz, null);
+    }
+
+    public static <T extends Number> T parseNumber(String stringValue, Class<T> clazz, T defaultValue) {
+        try {
+            String val = stringValue.replace(",", ".");
+            return clazz.getDeclaredConstructor(String.class).newInstance(val);
+        } catch (Exception e) {
+            Logger.error("Error parsing " + clazz + " from value=" + stringValue);
+        }
+        return defaultValue;
     }
 }

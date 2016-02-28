@@ -17,8 +17,9 @@
                         <li class="dropdown-header">${_account.getEmail()}</li>
                     #{if _account.isAdmin()}
                         <li><a href="@{Admin.index()}">Администрирование</a></li>
-                        <li role="separator" class="divider"></li>
                     #{/if}
+                        <li><a href="@{Stats.index()}">Статистика</a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="@{Security.logout()}">Выход</a></li>
                     </ul>
                 </li>
