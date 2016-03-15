@@ -15,8 +15,12 @@
     #{set 'docReady'}
         #{get 'docReady' /}
 
-
+    var xcategories = ['Количество нажатий за 1 интервал', 'Количество нажатий за 2 интервал', 'Количество нажатий за 3 интервал', 'Количество нажатий за 4 интервал', 'Количество нажатий за 5 интервал', 'Количество нажатий за 6 интервал'];
     $('#chart').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
         title: {
             text: 'Теппинг-тест статистика'
         },
@@ -24,86 +28,78 @@
             text: 'по пользователю: ${account.getEmail()}'
         },
         xAxis: {
-            type: 'datetime',
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
+            categories: xcategories,
+            title: {
+                enabled: true,
+                text: 'Интервалы'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
         },
         yAxis: {
             title: {
-                text: 'Коэффициент силы нервной системы (КСНС)'
-            },
-            plotBands: [
-                {
-                    label: {
-                        text: "Очень сильная"
-                    },
-                    color: '#D7F7E1',
-                    from: 1.5,
-                    to: 1000
-                },
-                {
-                    label: {
-                        text: "Сильно-слабая"
-                    },
-                    color: '#D7DDF7',
-                    from: 1.2,
-                    to: 1.49
-                },
-                {
-                    label: {
-                        text: "Средняя"
-                    },
-                    color: '#F7F1D7',
-                    from: 0.8,
-                    to: 1.19
-                },
-                {
-                    label: {
-                        text: "Слабо-сильная"
-                    },
-                    color: '#FCFFC5',
-                    from: 0.5,
-                    to: 0.79
-                },
-                {
-                    label: {
-                        text: "Очень слабая"
-                    },
-                    color: '#F7D7ED',
-                    from: -1000,
-                    to: 0.49
-                },
-            ],
+                text: 'Количество тапов'
+            }
         },
         legend: {
-            enabled: false
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
         },
-        tooltip: {
-            pointFormat: 'Результат: <b>{point.y:.2f}</b>'
-        },
-        series: [{
-            data: [
-                #{list items:testResults, as:'res'}
-                    [Date.UTC(${res.getResultDate().format('yyyy,MM-1,dd,HH,mm,ss')}), ${res.getResult()}],
-                #{/list}
-            ],
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y:.2f}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: '{point.x} инт., {point.y} кол-во'
                 }
             }
+        },
+        series: [{
+            name: "Все результаты",
+            color: 'rgba(119, 152, 191, .5)',
+            data: [
+                #{list items:all, as:'res'}
+                    [${res[0]}, ${res[1]}],
+                #{/list}
+            ]
+        }, {
+            name: "Cредний результат",
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+                #{list items:avg, as:'res'}
+                    [${res[0]}, ${res[1]}],
+                #{/list}
+            ]
+        }, {
+            name: "Последний результат",
+            color: 'rgba(255,255,0, .5)',
+            data: [
+                #{list items:avg, as:'res'}
+                    [${res[0]}, ${res[1]}],
+                #{/list}
+            ]
         }]
     });
     #{/set}
