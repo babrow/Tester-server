@@ -33,7 +33,7 @@ public class Stats extends Controller {
         Test test = Test.findById(1L);
         Account account = Account.find("byEmail", Security.connected()).first();
 
-        TestResultAttr lastRes = TestResultAttr.find("testResult.test = ? and testResult.account = ? order by testResult.resultDate", test, account).first();
+        TestResultAttr lastRes = TestResultAttr.find("testResult.test = ? and testResult.account = ? order by testResult.resultDate desc", test, account).first();
         List<String[]> last = getTappingData(Arrays.asList(lastRes));
         List<TestResultAttr> allRes = TestResultAttr.find("testResult.test = ? and testResult.account = ?", test, account).fetch();
         List<String[]> all = getTappingData(allRes);
